@@ -38,7 +38,6 @@ const WinningTicket = ({ ticket, onBack }) => {
         <ArrowLeft size={24} />
       </button>
       
-      {/* Hiasan Tiket */}
       <div className="absolute -left-4 top-1/2 w-8 h-8 bg-porcelain rounded-full"></div>
       <div className="absolute -right-4 top-1/2 w-8 h-8 bg-porcelain rounded-full"></div>
 

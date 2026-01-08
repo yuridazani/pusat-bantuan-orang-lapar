@@ -1,18 +1,14 @@
-// src/App.jsx
-
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { Gift, Play, Lock, Zap, Sparkles, RefreshCw, Utensils } from 'lucide-react';
-import Swal from 'sweetalert2';
+import { CustomSwal } from './utils/customAlert';
 
-// Import Komponen Game
 import GameStopTheLoop from './components/GameStopTheLoop';
 import GameGachaCompile from './components/GameGachaCompile';
 import GameCekKhodam from './components/GameCekKodam'; 
 import WinningTicket from './components/WinningTicket';
+import Footer from './components/Footer';
 
-// Import Meme (Pastikan file ada di src/assets)
-// Jika tidak ada gambar, hapus 'imageUrl' di fungsi handlePrankMenu
 import memePic from './assets/meme-judge.jfif'; 
 
 const App = () => {
@@ -46,42 +42,16 @@ const App = () => {
     
     setTicketData(data);
     setHasPlayed(true);
+    
     setActiveTab('ticket');
     
-    if (prizeTitle.includes("JACKPOT") || prizeTitle.includes("GACOR")) {
+    if (prizeTitle.includes("HOKI") || prizeTitle.includes("GACOR") || prizeTitle.includes("JACKPOT")) {
       confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 }, colors: ['#aa5731', '#d7c171', '#478779'] });
-      Swal.fire({
-        title: 'HOKI PARAH!',
-        text: 'Buruan klaim ke kasir sebelum berubah pikiran!',
-        icon: 'success',
-        confirmButtonText: 'Gasss!',
-        confirmButtonColor: '#478779',
-        background: '#f3f6f0',
-        color: '#2d2d2d'
-      });
-    } else if (prizeTitle.includes("ZONK") || prizeTitle.includes("GAGAL") || prizeTitle.includes("AMBYAR") || prizeTitle.includes("Permen")) {
-       Swal.fire({
-            title: 'Yah, Zonk...',
-            text: 'Ambil permen aja di kasir ya wkwk',
-            icon: 'error',
-            confirmButtonText: 'Nasib...',
-            confirmButtonColor: '#d33',
-            background: '#f3f6f0'
-        });
-    } else {
-        Swal.fire({
-            title: 'Lumayan...',
-            text: 'Dapet Diskon 2K!',
-            icon: 'info',
-            confirmButtonText: 'Ambil',
-            confirmButtonColor: '#aa5731',
-            background: '#f3f6f0'
-        });
     }
   };
 
   const handleReset = () => {
-    Swal.fire({
+    CustomSwal.fire({
         title: 'Reset Login?',
         text: "Fitur khusus panitia buat reset harian.",
         icon: 'warning',
@@ -96,23 +66,18 @@ const App = () => {
     });
   };
 
-  // --- LOGIKA PRANK MENU ---
   const handlePrankMenu = () => {
-    Swal.fire({
-        title: 'MATANYA DIPAKE DONG KAK 😭',
-        // Ganti URL ini kalau mau pakai link internet, atau pakai variable memePic kalau file ada
+    CustomSwal.fire({
+        title: 'MATANYA DIPAKE KAK 😭',
         imageUrl: memePic || 'https://media1.tenor.com/m/eU91-5tY5iMAAAAC/cat-judging.gif', 
         imageWidth: 250,
         text: 'Itu banner menu segede gaban dipajang di depan mata, masa masih nyari di HP? Capek deh...',
-        confirmButtonText: 'Iya Maap',
-        confirmButtonColor: '#aa5731', 
-        background: '#fff',
-        backdrop: `rgba(0,0,0,0.5)`
+        confirmButtonText: 'Iya Maap'
     });
   };
 
   return (
-    <div className="min-h-screen bg-porcelain text-dark-charcoal pb-24 selection:bg-golden-sand selection:text-rusty-spice font-body">
+    <div className="min-h-screen bg-porcelain text-dark-charcoal pb-6 selection:bg-golden-sand selection:text-rusty-spice font-body">
       
       {/* HEADER */}
       <header className="bg-jungle-teal text-white pt-8 pb-12 px-6 rounded-b-[3rem] shadow-xl relative overflow-hidden">
@@ -145,69 +110,71 @@ const App = () => {
           <div className="animate-fade-in-up">
             
             {/* CARD GAME STATUS */}
-            {!hasPlayed ? (
-              <div className="bg-white rounded-[2rem] p-6 shadow-lg border-2 border-dashed border-rusty-spice/30 mb-6 transform hover:scale-[1.02] transition-transform duration-300 relative overflow-hidden">
-                <div className="absolute top-0 right-0 bg-rusty-spice text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl">
-                  1X KESEMPATAN
-                </div>
-                
+            <div className="bg-white rounded-[2rem] p-6 shadow-lg border-2 border-dashed border-rusty-spice/30 mb-6 relative overflow-hidden">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="bg-rusty-spice text-white p-3 rounded-full shadow-md animate-bounce-slow">
                     <Gift size={24} />
                   </div>
                   <div>
-                    <h3 className="font-display font-bold text-2xl text-rusty-spice">Iseng Berhadiah</h3>
-                    <p className="text-xs text-gray-400 font-bold">Menangkan Diskon / Jackpot Menu!</p>
+                    <h3 className="font-display font-bold text-2xl text-rusty-spice">Pilih Mainan</h3>
+                    <p className="text-xs text-gray-400 font-bold">Cari diskon atau seru-seruan?</p>
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-1 gap-3 mt-4">
                   <GameButton 
-                    color="bg-jungle-teal" 
-                    icon={<Zap size={20} />} 
-                    title="Stop The Loop" 
-                    desc="Adu reflek (SUSAH BANGET)" 
-                    onClick={() => setActiveTab('game1')} 
-                  />
-                  <GameButton 
-                    color="bg-rusty-spice" 
-                    icon={<Play size={20} />} 
-                    title="Gacha Nasib" 
-                    desc="Hoki-hokian (Banyak Zonk)" 
-                    onClick={() => setActiveTab('game2')} 
-                  />
-                  <GameButton 
                     color="bg-golden-sand text-dark-charcoal" 
                     icon={<Sparkles size={20} />} 
                     title="Cek Khodam" 
-                    desc="Siapa yang nemenin kamu?" 
+                    desc="Just for fun (Bisa berkali-kali)" 
                     onClick={() => setActiveTab('game3')} 
                   />
+
+                  {!hasPlayed ? (
+                    <>
+                      <div className="my-2 border-t border-gray-100 relative">
+                        <span className="absolute top-[-10px] left-1/2 -translate-x-1/2 bg-white px-2 text-[10px] text-gray-400 font-bold">GAME HADIAH (MAX 1X)</span>
+                      </div>
+                      <GameButton 
+                        color="bg-jungle-teal" 
+                        icon={<Zap size={20} />} 
+                        title="Stop The Loop" 
+                        desc="Adu reflek (Hard Mode)" 
+                        onClick={() => setActiveTab('game1')} 
+                      />
+                      <GameButton 
+                        color="bg-rusty-spice" 
+                        icon={<Play size={20} />} 
+                        title="Gacha Nasib" 
+                        desc="Hoki-hokian (High Risk)" 
+                        onClick={() => setActiveTab('game2')} 
+                      />
+                    </>
+                  ) : (
+                    <div className="bg-gray-100 p-4 rounded-xl text-center mt-2 border border-gray-200">
+                        <Lock size={24} className="mx-auto text-gray-400 mb-2"/>
+                        <p className="text-xs text-gray-500 font-bold">Game Hadiah Terkunci</p>
+                        <p className="text-[10px] text-gray-400">Kamu udah ambil jatah main hari ini.</p>
+                        <button onClick={() => setActiveTab('ticket')} className="mt-2 text-jungle-teal text-xs font-bold underline">
+                            Lihat Tiketku
+                        </button>
+                    </div>
+                  )}
                 </div>
-              </div>
-            ) : (
-              <div className="bg-white p-6 rounded-[2rem] mb-6 text-center border border-gray-200 shadow-sm">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3 text-gray-400">
-                  <Lock size={30} />
-                </div>
-                <p className="text-sm font-bold text-gray-500">Jatah mainmu udah abis.</p>
-                <button onClick={() => setActiveTab('ticket')} className="bg-jungle-teal text-white px-6 py-3 rounded-xl font-bold text-sm shadow-md hover:bg-fern transition-all w-full mt-3">
-                  Liat Tiket Hadiahku
-                </button>
-              </div>
-            )}
+            </div>
 
             {/* BUTTON LIHAT MENU (PRANK) */}
             <button 
               onClick={handlePrankMenu}
-              className="w-full bg-white border border-gray-200 p-4 rounded-2xl flex justify-between items-center shadow-sm hover:shadow-md transition-all group mt-2"
+              className="w-full bg-white border border-gray-200 p-4 rounded-2xl flex justify-between items-center shadow-sm hover:shadow-md transition-all group mb-4"
             >
               <div className="flex items-center gap-3">
                 <div className="bg-mint-cream p-2 rounded-lg text-jungle-teal group-hover:bg-jungle-teal group-hover:text-white transition-colors">
                   <Utensils size={20} />
                 </div>
                 <div className="text-left">
-                  <h4 className="font-display font-bold text-lg text-dark-charcoal">Rekomendasi Menu Chef</h4>
+                  <h4 className="font-display font-bold text-lg text-dark-charcoal">Lihat Daftar Menu</h4>
+                  <p className="text-xs text-gray-400">Ada makanan apa aja?</p>
                 </div>
               </div>
               <div className="bg-gray-50 p-2 rounded-full text-gray-400 group-hover:text-rusty-spice">
@@ -215,25 +182,20 @@ const App = () => {
               </div>
             </button>
 
+            {/* FOOTER LANGSUNG DI BAWAH MENU */}
+            <Footer />
+
           </div>
         )}
 
         {/* GAME SCREENS CONTAINER */}
-        <div className="min-h-[400px]">
-          {activeTab === 'game1' && <GameStopTheLoop onWin={saveWin} onBack={() => setActiveTab('menu')} />}
-          {activeTab === 'game2' && <GameGachaCompile onWin={saveWin} onBack={() => setActiveTab('menu')} />}
-          {activeTab === 'game3' && <GameCekKhodam onWin={saveWin} onBack={() => setActiveTab('menu')} />}
-        </div>
-
-        {/* TOMBOL RESET (DEV ONLY) */}
-        <div className="fixed bottom-6 right-6 z-50">
-          <button 
-            onClick={handleReset}
-            className="bg-gray-800/10 text-gray-500 p-2 rounded-full hover:bg-red-500 hover:text-white transition-all backdrop-blur-md border border-gray-300"
-          >
-            <RefreshCw size={16} />
-          </button>
-        </div>
+        {activeTab !== 'menu' && (
+          <div>
+            {activeTab === 'game1' && <GameStopTheLoop onWin={saveWin} onBack={() => setActiveTab('menu')} />}
+            {activeTab === 'game2' && <GameGachaCompile onWin={saveWin} onBack={() => setActiveTab('menu')} />}
+            {activeTab === 'game3' && <GameCekKhodam onBack={() => setActiveTab('menu')} />}
+          </div>
+        )}
 
       </main>
     </div>
@@ -243,14 +205,14 @@ const App = () => {
 const GameButton = ({ color, icon, title, desc, onClick }) => (
   <button 
     onClick={onClick}
-    className={`${color} w-full p-4 rounded-2xl text-left flex items-center gap-4 transition-transform active:scale-95 shadow-md border-b-4 border-black/10`}
+    className={`${color} w-full p-4 rounded-2xl text-left flex items-center gap-4 transition-transform active:scale-95 shadow-md border-b-4 border-black/10 text-white`}
   >
     <div className="bg-white/20 p-3 rounded-full backdrop-blur-sm shadow-inner">
       {icon}
     </div>
     <div>
       <h4 className="font-display font-bold text-lg leading-none">{title}</h4>
-      <p className="text-xs font-body opacity-90 mt-1 font-medium">{desc}</p>
+      <p className="text-xs opacity-90 mt-1 font-medium font-body">{desc}</p>
     </div>
   </button>
 );

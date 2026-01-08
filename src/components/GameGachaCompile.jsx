@@ -1,4 +1,3 @@
-// src/components/GameGachaCompile.jsx
 import React, { useState } from 'react';
 import { Play, Sparkles } from 'lucide-react';
 import { getRandomText, getRandomMenuPrize } from '../data/gameData';
@@ -25,17 +24,12 @@ const GameGachaCompile = ({ onWin, onBack }) => {
     setStatus('done');
     const rand = Math.random();
     
-    // LOGIKA PROBABILITAS (HARD MODE)
-    // 0.00 - 0.01 = Jackpot (1%)
-    // 0.01 - 0.20 = Diskon 2k (19%)
-    // 0.20 - 1.00 = Zonk Permen (80%)
-    
     if (rand < 0.01) { 
-      onWin("JACKPOT GACOR!", getRandomMenuPrize(), "Gacha Nasib");
+      onWin(getRandomText('JACKPOT'), getRandomMenuPrize(), "Gacha Nasib");
     } else if (rand < 0.20) { 
-      onWin("NOT BAD...", "Diskon Rp 2.000", "Gacha Nasib");
+      onWin(getRandomText('SMALL'), "Diskon Rp 2.000", "Gacha Nasib");
     } else {
-      onWin("GAGAL MANING...", "Dapet Permen (Sabar)", "Gacha Nasib");
+      onWin(getRandomText('ZONK'), "Dapet Permen (Sabar)", "Gacha Nasib");
     }
   };
 
@@ -64,7 +58,9 @@ const GameGachaCompile = ({ onWin, onBack }) => {
         </button>
       )}
       
-      <button onClick={onBack} className="mt-6 text-sm text-gray-400 font-bold">Kembali</button>
+      <button onClick={onBack} className="mt-6 text-sm text-gray-400 font-bold hover:text-rusty-spice transition-colors">
+        Takut Zonk, Balik Aja
+      </button>
     </div>
   );
 };

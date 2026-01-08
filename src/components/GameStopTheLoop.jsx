@@ -1,4 +1,3 @@
-// src/components/GameStopTheLoop.jsx
 import React, { useState, useRef } from 'react';
 import { getRandomText, getRandomMenuPrize } from '../data/gameData';
 
@@ -20,19 +19,14 @@ const GameStopTheLoop = ({ onWin, onBack }) => {
     setIsRunning(false);
     
     const result = timer;
-    // TARGET: 5.00 detik (500)
-    
-    // JACKPOT: Harus pas banget 500 (Peluang 1/1000)
     if (result === 500) {
-      onWin("JACKPOT GACOR!", getRandomMenuPrize(), "Stop The Loop");
+      onWin(getRandomText('JACKPOT'), getRandomMenuPrize(), "Stop The Loop");
     } 
-    // MEDIUM: Meleset dikit (4.95 - 5.05) -> Diskon 2k
     else if (result >= 495 && result <= 505) {
-      onWin("LUMAYAN LAH...", "Diskon Rp 2.000", "Stop The Loop");
+      onWin(getRandomText('SMALL'), "Diskon Rp 2.000", "Stop The Loop");
     } 
-    // ZONK: Sisanya permen
     else {
-      onWin("AMBYAR...", "Dapet Permen (Skill Issue)", "Stop The Loop");
+      onWin(getRandomText('ZONK'), "Dapet Permen (Skill Issue)", "Stop The Loop");
     }
   };
 
@@ -51,7 +45,9 @@ const GameStopTheLoop = ({ onWin, onBack }) => {
       {isRunning && (
         <button onClick={stop} className="bg-rusty-spice text-white px-10 py-4 rounded-full font-display font-black text-xl shadow-lg hover:bg-[#944a29] transition-transform active:scale-95 w-full">STOP!</button>
       )}
-      <button onClick={onBack} className="mt-8 text-sm text-gray-400 font-bold underline">Gak jadi main</button>
+      <button onClick={onBack} className="mt-8 text-sm text-gray-400 font-bold underline hover:text-rusty-spice">
+        Nyerah Deh, Balik Menu
+      </button>
     </div>
   );
 };
