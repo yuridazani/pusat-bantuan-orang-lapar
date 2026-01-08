@@ -1,14 +1,18 @@
+// src/App.jsx
+
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { Gift, Play, Lock, Zap, Sparkles, RefreshCw, Utensils } from 'lucide-react';
 import { CustomSwal } from './utils/customAlert';
 
+// Import Komponen Game
 import GameStopTheLoop from './components/GameStopTheLoop';
 import GameGachaCompile from './components/GameGachaCompile';
 import GameCekKhodam from './components/GameCekKodam'; 
 import WinningTicket from './components/WinningTicket';
 import Footer from './components/Footer';
 
+// Pastikan file ini ada, kalau ga ada hapus baris ini dan ganti imageUrl di bawah
 import memePic from './assets/meme-judge.jfif'; 
 
 const App = () => {
@@ -77,10 +81,18 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-porcelain text-dark-charcoal pb-6 selection:bg-golden-sand selection:text-rusty-spice font-body">
+    <div className="min-h-screen bg-porcelain text-dark-charcoal pb-6 selection:bg-golden-sand selection:text-rusty-spice font-body relative overflow-hidden">
       
+      {/* --- DEKORASI BACKGROUND (BARU) --- */}
+      {/* Blob Kiri Atas */}
+      <div className="fixed top-[-50px] left-[-50px] w-48 h-48 bg-mint-cream rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-float pointer-events-none z-0"></div>
+      {/* Blob Kanan Bawah */}
+      <div className="fixed bottom-[-50px] right-[-50px] w-64 h-64 bg-golden-sand/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-float pointer-events-none z-0" style={{animationDelay: '2s'}}></div>
+      {/* Blob Tengah */}
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-rusty-spice/5 rounded-full filter blur-3xl pointer-events-none z-0"></div>
+
       {/* HEADER */}
-      <header className="bg-jungle-teal text-white pt-8 pb-12 px-6 rounded-b-[3rem] shadow-xl relative overflow-hidden">
+      <header className="bg-jungle-teal text-white pt-8 pb-12 px-6 rounded-b-[3rem] shadow-xl relative overflow-hidden z-10">
         <div className="absolute top-[-20px] right-[-20px] w-32 h-32 bg-golden-sand rounded-full opacity-20 blur-2xl animate-float"></div>
         <div className="absolute bottom-[-20px] left-[-20px] w-24 h-24 bg-rusty-spice rounded-full opacity-20 blur-xl animate-float" style={{animationDelay: '1s'}}></div>
         
