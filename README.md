@@ -1,16 +1,116 @@
-# React + Vite
+# 🎮 Pusat Bantuan Orang Lapar (Game Web App)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> **Official Marketing App for Food Station 7A1**  
+> *Entrepreneurship Project - Informatika UMSIDA*
 
-Currently, two official plugins are available:
+Web App berbasis React ini dibuat sebagai strategi *Gamification Marketing* untuk menarik pengunjung bazaar. Pengunjung bisa memainkan mini-game untuk memenangkan diskon atau makanan gratis.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![Status](https://img.shields.io/badge/Status-Ready_to_Deploy-success?style=for-the-badge)
+![Tech](https://img.shields.io/badge/Built_With-React_Vite_Tailwind-blue?style=for-the-badge)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🕹️ Fitur & Mini Games
 
-## Expanding the ESLint configuration
+Aplikasi ini memiliki 3 mode permainan utama + fitur keamanan:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 1. ⏱️ Stop The Loop (Skill Based)
+Game uji ketangkasan dimana pemain harus memberhentikan *timer* tepat di **05.00 detik**.
+- **Jackpot:** Tepat 5.00s (Gratis 1 Menu)
+- **Lucky:** 4.95s - 5.05s (Diskon Rp 2.000)
+- **Zonk:** Selain itu (Dapet Permen)
+
+### 2. 🎲 Gacha Nasib (Luck Based)
+Game keberuntungan murni dengan algoritma probabilitas.
+- **Jackpot (1%):** Traktiran Sultan
+- **Lucky (19%):** Diskon Tipis-Tipis
+- **Zonk (80%):** Dapet Hikmahnya Aja (Permen)
+
+### 3. 👻 Cek Khodam (Just For Fun)
+Fitur hiburan *unlimited* untuk mengecek "siapa yang mendampingi" pengunjung.
+- Database berisi ratusan khodam lucu (e.g., "Kulkas 2 Pintu", "Istri Sah Mingyu", "Beban Keluarga Pro Max").
+- Menggunakan algoritma *Random generated* + *Robohash API* untuk avatar unik.
+
+---
+
+## 🔒 Sistem Keamanan (Anti-Curang)
+
+Aplikasi ini dirancang untuk mencegah kecurangan pengunjung bazaar:
+
+1. **One Device, One Chance:** Menggunakan `localStorage` untuk mengunci perangkat setelah bermain game hadiah (Stop The Loop / Gacha). Game "Cek Khodam" tetap terbuka bebas.
+2. **Anti-Screenshot Ticket:** Tiket kemenangan menampilkan **Jam Digital Realtime (Detik berjalan)**. Kasir bisa membedakan mana aplikasi asli dan mana *screenshot*.
+3. **Claim Validation:** Tombol "KLAIM SEKARANG" hanya boleh ditekan di depan kasir. Setelah diklik, tiket berubah status menjadi "SUDAH DIKLAIM" secara permanen.
+
+---
+
+## 🛠️ Tech Stack
+
+Dibuat dengan cinta dan sedikit begadang menggunakan:
+
+- **Core:** [React](https://react.dev/) + [Vite](https://vitejs.dev/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/) (Custom Theme: *Rusty Spice & Jungle Teal*)
+- **Icons:** [Lucide React](https://lucide.dev/)
+- **Alerts:** [SweetAlert2](https://sweetalert2.github.io/) (Custom Styling)
+- **Effects:** `canvas-confetti` untuk efek menang Jackpot
+- **Font:** Bricolage Grotesque & Manrope
+
+---
+
+## 🚀 Cara Menjalankan (Development)
+
+Pastikan sudah install [Node.js](https://nodejs.org/).
+
+1. **Clone / Download Repo ini**
+2. **Install Dependencies:**
+```bash
+   npm install
+```
+3. **Jalankan Server Lokal:**
+```bash
+   npm run dev
+```
+4. Buka `http://localhost:5173` di browser.
+
+---
+
+## 📦 Cara Build (Deployment)
+
+Untuk di-upload ke Vercel/Netlify:
+```bash
+npm run build
+```
+
+Folder `dist` akan siap untuk di-deploy.
+
+---
+
+## ⚙️ Konfigurasi Penting (Untuk Developer)
+
+- **Mengatur Hadiah & Teks:**  
+  Edit file `src/data/gameData.js`. Di sini tempat mengatur daftar menu, kata-kata Zonk, dan list Khodam.
+
+- **Mengatur Probabilitas Gacha:**  
+  Edit file `src/components/GameGachaCompile.jsx`. Ubah angka pada `if (rand < 0.01)` untuk mengatur tingkat kesulitan.
+
+- **Reset Harian (Panic Button):**  
+  Untuk testing, jika ingin main lagi di device yang sama:
+  1. Klik Ikon "Hadiah" (kiri atas) atau area kosong tertentu (tergantung implementasi rahasia).
+  2. Atau buka *Inspect Element* → *Application* → *Local Storage* → *Clear*.
+
+---
+
+## 🎨 Credits
+
+**Food Station 7A1 Team**
+
+- **Lead / Code:** Yurida Zani (Yuri)
+- **Design:** Canva & Tailwind
+- **Support:** Kopi, Indomie, & Para Kucing
+
+> *"Jangan lupa makan, coding butuh tenaga."* 🍚
+
+---
+
+## 📄 License
+
+MIT License - Bebas dipakai untuk keperluan edukasi dan non-komersial.
