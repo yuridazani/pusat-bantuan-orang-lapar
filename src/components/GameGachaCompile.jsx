@@ -22,21 +22,22 @@ const GameGachaCompile = ({ onWin, onBack }) => {
 
   const determinePrize = () => {
     setStatus('done');
-    const rand = Math.random();
-    
-    if (rand < 0.01) { 
+    const rand = Math.random(); 
+    if (rand < 0.05) { 
       onWin(getRandomText('JACKPOT'), getRandomMenuPrize(), "Gacha Nasib");
-    } else if (rand < 0.20) { 
+    } 
+    else if (rand < 0.50) { 
       onWin(getRandomText('SMALL'), "Diskon Rp 2.000", "Gacha Nasib");
-    } else {
-      onWin(getRandomText('ZONK'), "Dapet Permen (Sabar)", "Gacha Nasib");
+    } 
+    else {
+      onWin(getRandomText('ZONK'), "Dapet Permen (Lumayan Manis)", "Gacha Nasib");
     }
   };
 
   return (
     <div className="text-center py-12 px-6 h-full flex flex-col justify-center items-center bg-white rounded-[2.5rem] shadow-xl border border-gray-100">
       <h3 className="font-display font-bold text-2xl mb-6 text-dark-charcoal">Gacha Nasib</h3>
-      <p className="text-xs text-gray-400 mb-6">Peluang Zonk: 80% (Jujur aja nih)</p>
+      <p className="text-xs text-gray-400 mb-6">Rate: 5% Jackpot | 45% Diskon | 50% Permen</p>
       
       <div className="w-32 h-32 bg-mint-cream border-4 border-jungle-teal rounded-3xl flex items-center justify-center mb-8 shadow-inner relative overflow-hidden">
         {status === 'compiling' ? (
@@ -59,7 +60,7 @@ const GameGachaCompile = ({ onWin, onBack }) => {
       )}
       
       <button onClick={onBack} className="mt-6 text-sm text-gray-400 font-bold hover:text-rusty-spice transition-colors">
-        Takut Zonk, Balik Aja
+        Takut Zonk? Balik Aja
       </button>
     </div>
   );
