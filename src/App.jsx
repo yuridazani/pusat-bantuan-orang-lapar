@@ -2,17 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
-import { Gift, Play, Lock, Zap, Sparkles, RefreshCw, Utensils } from 'lucide-react';
+import { Gift, Play, Lock, Zap, Sparkles, RefreshCw, Utensils, Hammer } from 'lucide-react'; // Import Hammer icon
 import { CustomSwal } from './utils/customAlert';
 
 // Import Komponen Game
 import GameStopTheLoop from './components/GameStopTheLoop';
 import GameGachaCompile from './components/GameGachaCompile';
 import GameCekKhodam from './components/GameCekKodam'; 
+import GameWhackAByte from './components/GameWhackAByte'; // <--- IMPORT GAME BARU
 import WinningTicket from './components/WinningTicket';
 import Footer from './components/Footer';
 
-// Pastikan file ini ada, kalau ga ada hapus baris ini dan ganti imageUrl di bawah
 import memePic from './assets/meme-judge.jfif'; 
 
 const App = () => {
@@ -49,7 +49,7 @@ const App = () => {
     
     setActiveTab('ticket');
     
-    if (prizeTitle.includes("HOKI") || prizeTitle.includes("GACOR") || prizeTitle.includes("JACKPOT")) {
+    if (prizeTitle.includes("HOKI") || prizeTitle.includes("GACOR") || prizeTitle.includes("JACKPOT") || prizeTitle.includes("DEWA")) {
       confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 }, colors: ['#aa5731', '#d7c171', '#478779'] });
     }
   };
@@ -83,12 +83,9 @@ const App = () => {
   return (
     <div className="min-h-screen bg-porcelain text-dark-charcoal pb-6 selection:bg-golden-sand selection:text-rusty-spice font-body relative overflow-hidden">
       
-      {/* --- DEKORASI BACKGROUND (BARU) --- */}
-      {/* Blob Kiri Atas */}
+      {/* DEKORASI BACKGROUND */}
       <div className="fixed top-[-50px] left-[-50px] w-48 h-48 bg-mint-cream rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-float pointer-events-none z-0"></div>
-      {/* Blob Kanan Bawah */}
       <div className="fixed bottom-[-50px] right-[-50px] w-64 h-64 bg-golden-sand/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-float pointer-events-none z-0" style={{animationDelay: '2s'}}></div>
-      {/* Blob Tengah */}
       <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-rusty-spice/5 rounded-full filter blur-3xl pointer-events-none z-0"></div>
 
       {/* HEADER */}
@@ -147,19 +144,32 @@ const App = () => {
                       <div className="my-2 border-t border-gray-100 relative">
                         <span className="absolute top-[-10px] left-1/2 -translate-x-1/2 bg-white px-2 text-[10px] text-gray-400 font-bold">GAME HADIAH (MAX 1X)</span>
                       </div>
+                      
+                      {/* GAME 1: BLIND STOP LOOP */}
                       <GameButton 
                         color="bg-jungle-teal" 
                         icon={<Zap size={20} />} 
                         title="Stop The Loop" 
-                        desc="Adu reflek (Hard Mode)" 
+                        desc="Blind Mode (Feeling doang!)" 
                         onClick={() => setActiveTab('game1')} 
                       />
+                      
+                      {/* GAME 2: GACHA */}
                       <GameButton 
                         color="bg-rusty-spice" 
                         icon={<Play size={20} />} 
                         title="Gacha Nasib" 
                         desc="Hoki-hokian (High Risk)" 
                         onClick={() => setActiveTab('game2')} 
+                      />
+
+                      {/* GAME 4: WHACK A BYTE (BARU) */}
+                      <GameButton 
+                        color="bg-purple-600" 
+                        icon={<Hammer size={20} />} 
+                        title="Pukul Si Botak" 
+                        desc="Adu Kecepatan Tangan!" 
+                        onClick={() => setActiveTab('game4')} 
                       />
                     </>
                   ) : (
@@ -194,7 +204,6 @@ const App = () => {
               </div>
             </button>
 
-            {/* FOOTER LANGSUNG DI BAWAH MENU */}
             <Footer />
 
           </div>
@@ -206,6 +215,7 @@ const App = () => {
             {activeTab === 'game1' && <GameStopTheLoop onWin={saveWin} onBack={() => setActiveTab('menu')} />}
             {activeTab === 'game2' && <GameGachaCompile onWin={saveWin} onBack={() => setActiveTab('menu')} />}
             {activeTab === 'game3' && <GameCekKhodam onBack={() => setActiveTab('menu')} />}
+            {activeTab === 'game4' && <GameWhackAByte onWin={saveWin} onBack={() => setActiveTab('menu')} />}
           </div>
         )}
 
