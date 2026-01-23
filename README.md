@@ -12,34 +12,46 @@ Web App berbasis React ini dibuat sebagai strategi *Gamification Marketing* untu
 
 ## 🕹️ Fitur & Mini Games
 
-Aplikasi ini memiliki 3 mode permainan utama + fitur keamanan:
+Aplikasi ini memiliki 4 mode permainan utama dengan tingkat kesulitan yang berbeda:
 
-### 1. ⏱️ Stop The Loop (Skill Based)
-Game uji ketangkasan dimana pemain harus memberhentikan *timer* tepat di **05.00 detik**.
-- **Jackpot:** Tepat 5.00s (Gratis 1 Menu)
-- **Lucky:** 4.95s - 5.05s (Diskon Rp 2.000)
+### 1. ⏱️ Stop The Loop (Blind Mode)
+**Tipe: Skill + Feeling**  
+Pemain harus memberhentikan timer tepat di **05.00 detik**.
+- **Twist:** Di detik ke-3.00, angka menghilang/menjadi icon mata tertutup. Pemain harus mengandalkan *feeling*!
+- **Jackpot:** 5.00s - 5.10s (Tebus Murah 2K)
+- **Lucky:** 4.90s - 4.99s ATAU 5.11s - 5.25s (Diskon Rp 2.000)
 - **Zonk:** Selain itu (Dapet Permen)
 
-### 2. 🎲 Gacha Nasib (Luck Based)
-Game keberuntungan murni dengan algoritma probabilitas.
-- **Jackpot (1%):** Traktiran Sultan
-- **Lucky (19%):** Diskon Tipis-Tipis
-- **Zonk (80%):** Dapet Hikmahnya Aja (Permen)
+### 2. 🔨 Whack-A-Byte (Pukul Si Botak)
+**Tipe: Refleks Cepat**  
+Pukul maskot "Si Botak Tengil" yang muncul secara acak di grid 3x3 dalam waktu 15 detik.
+- **Jackpot:** Skor > 15 (Refleks Dewa)
+- **Lucky:** Skor 10 - 15 (Tangan Kilat)
+- **Zonk:** Skor < 10 (Si Botak Menang)
 
-### 3. 👻 Cek Khodam (Just For Fun)
-Fitur hiburan *unlimited* untuk mengecek "siapa yang mendampingi" pengunjung.
-- Database berisi ratusan khodam lucu (e.g., "Kulkas 2 Pintu", "Istri Sah Mingyu", "Beban Keluarga Pro Max").
-- Menggunakan algoritma *Random generated* + *Robohash API* untuk avatar unik.
+### 3. 🎲 Gacha Nasib (High Risk)
+**Tipe: Keberuntungan Murni**  
+Untuk kaum mager yang malas mikir. Klik tombol, tunggu nasib.
+- **Jackpot (5%):** Tebus Murah 2K
+- **Lucky (45%):** Diskon Rp 2.000
+- **Zonk (50%):** Dapet Hikmahnya Aja (Permen)
+
+### 4. 👻 Cek Khodam (Just For Fun)
+**Tipe: Unlimited Hiburan**  
+Fitur seru-seruan tanpa hadiah fisik untuk mengecek "siapa yang mendampingi" pengunjung.
+- **Fitur:** Avatar khodam *auto-generated* (unik tiap nama) menggunakan Robohash API.
+- **Hasil:** Teks *roasting* marketing (e.g., "Khodam: Kulkas 2 Pintu - Solusi: Beli Seblak biar anget").
 
 ---
 
-## 🔒 Sistem Keamanan (Anti-Curang)
+## 🔒 Sistem Keamanan & Fair Play
 
-Aplikasi ini dirancang untuk mencegah kecurangan pengunjung bazaar:
+Aplikasi ini dirancang untuk mencegah kecurangan dan menjaga profit (Anti-Boncos):
 
-1. **One Device, One Chance:** Menggunakan `localStorage` untuk mengunci perangkat setelah bermain game hadiah (Stop The Loop / Gacha). Game "Cek Khodam" tetap terbuka bebas.
+1. **One Device, One Chance:** Game berhadiah (Stop Loop, Whack, Gacha) terkunci otomatis setelah 1x main per hari menggunakan `localStorage`. Cek Khodam tetap bebas.
 2. **Anti-Screenshot Ticket:** Tiket kemenangan menampilkan **Jam Digital Realtime (Detik berjalan)**. Kasir bisa membedakan mana aplikasi asli dan mana *screenshot*.
-3. **Claim Validation:** Tombol "KLAIM SEKARANG" hanya boleh ditekan di depan kasir. Setelah diklik, tiket berubah status menjadi "SUDAH DIKLAIM" secara permanen.
+3. **Claim Validation:** Tombol "KLAIM SEKARANG" di tiket hanya boleh ditekan di depan kasir. Setelah diklik, tiket berubah status menjadi "SUDAH DIKLAIM" secara permanen.
+4. **Prank Menu:** Tombol "Lihat Menu" tidak menampilkan daftar menu, melainkan peringatan lucu agar pengunjung melihat banner fisik di stand.
 
 ---
 
@@ -52,7 +64,7 @@ Dibuat dengan cinta dan sedikit begadang menggunakan:
 - **Icons:** [Lucide React](https://lucide.dev/)
 - **Alerts:** [SweetAlert2](https://sweetalert2.github.io/) (Custom Styling)
 - **Effects:** `canvas-confetti` untuk efek menang Jackpot
-- **Font:** Bricolage Grotesque & Manrope
+- **Assets:** Robohash API untuk avatar random
 
 ---
 
@@ -63,11 +75,11 @@ Pastikan sudah install [Node.js](https://nodejs.org/).
 1. **Clone / Download Repo ini**
 2. **Install Dependencies:**
 ```bash
-   npm install
+npm install
 ```
 3. **Jalankan Server Lokal:**
 ```bash
-   npm run dev
+npm run dev
 ```
 4. Buka `http://localhost:5173` di browser.
 
@@ -87,15 +99,15 @@ Folder `dist` akan siap untuk di-deploy.
 ## ⚙️ Konfigurasi Penting (Untuk Developer)
 
 - **Mengatur Hadiah & Teks:**  
-  Edit file `src/data/gameData.js`. Di sini tempat mengatur daftar menu, kata-kata Zonk, dan list Khodam.
+  Edit file `src/data/gameData.js`. Di sini tempat mengatur daftar menu Jackpot, kata-kata Zonk, dan list Khodam.
 
-- **Mengatur Probabilitas Gacha:**  
-  Edit file `src/components/GameGachaCompile.jsx`. Ubah angka pada `if (rand < 0.01)` untuk mengatur tingkat kesulitan.
+- **Mengatur Tingkat Kesulitan:**
+  - **Gacha:** Edit `src/components/GameGachaCompile.jsx` (ubah persentase `rand`).
+  - **Stop Loop:** Edit `src/components/GameStopTheLoop.jsx` (ubah range toleransi ms).
+  - **Whack-A-Byte:** Edit `src/components/GameWhackAByte.jsx` (ubah kecepatan `moleTimerRef`).
 
 - **Reset Harian (Panic Button):**  
-  Untuk testing, jika ingin main lagi di device yang sama:
-  1. Klik Ikon "Hadiah" (kiri atas) atau area kosong tertentu (tergantung implementasi rahasia).
-  2. Atau buka *Inspect Element* → *Application* → *Local Storage* → *Clear*.
+  Tombol reset rahasia (ikon *Refresh*) ada di pojok kanan bawah layar untuk keperluan testing/reset manual.
 
 ---
 
@@ -107,7 +119,7 @@ Folder `dist` akan siap untuk di-deploy.
 - **Design:** Canva & Tailwind
 - **Support:** Kopi, Indomie, & Para Kucing
 
-> *"Jangan lupa makan, coding butuh tenaga."* 🍚
+> *"Ditenagai oleh Kopi, Seblak, & Doa Ibu."* ☕
 
 ---
 
